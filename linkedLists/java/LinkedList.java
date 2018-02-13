@@ -1,32 +1,11 @@
 import java.util.HashSet;
+import java.util.Stack;
+
+// just a quick homebrew linked list class that I'll use to solve problems
 class LinkedList<T> {
 
-   private Node<T> head, tail;
-   private int size;
-
-   public static void main(String[] args) {
-      LinkedList<Integer> list = new LinkedList<Integer>();
-      for (int i = 0; i < 5; i++) {
-         list.append(i%3);
-      }
-
-      System.out.println("Original List:");
-      System.out.println(list);
-
-      System.out.println("Removing duplicates..");
-      list.removeDuplicates();
-      System.out.println(list);
-
-      System.out.println("Adding more duplicates..");
-      for (int i = 0; i < 5; i++) {
-         list.append(i%3);
-      }
-      System.out.println(list);
-
-      System.out.println("Removing duplicates again..");
-      list.removeDuplicates();
-      System.out.println(list);
-   }
+   protected Node<T> head, tail;
+   protected int size;
 
    // list constructor
    public LinkedList() {
@@ -43,24 +22,10 @@ class LinkedList<T> {
       size++;
    }
 
-   /*
-      Method to remove all duplicates from the list.
-      O(n) time, O(n) space.
-   */
-   public void removeDuplicates() {
-      Node<T> n = head.next, p = null;
-      HashSet<T> seenVals = new HashSet<T>();
-      while (n != null) {
-         if (seenVals.contains(n.data)) {
-            p.next = n.next;
-            if (n == tail) tail = p;
-            size--;
-         } else {
-            seenVals.add(n.data);
-            p = n;
-         }
-         n = n.next;
-      }
+   // gets the first node in the list, returns null if list is empty
+   public Node<T> getFirstNode() {
+      if (size == 0) return null;
+      return head.next;
    }
 
    // prints the LinkedList
@@ -76,7 +41,7 @@ class LinkedList<T> {
    }
 
    // internal node class
-   private class Node<T> {
+   protected static class Node<T> {
       T data;
       Node<T> next;
 
